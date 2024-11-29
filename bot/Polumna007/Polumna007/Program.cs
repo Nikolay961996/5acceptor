@@ -1,7 +1,8 @@
-﻿
+﻿using Polumna007.Logic;
 
+var generator = new ReactionsGenerator();
 Console.WriteLine("Nigora hello");
-
+Console.WriteLine(generator.GetAsciiEmoji(0.25f));
 
 //using Telegram.Bot;
 
