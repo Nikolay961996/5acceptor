@@ -1,11 +1,13 @@
 ﻿using Telegram.Bot;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
+using Integration;
 
 namespace Polumna007.Bot.Handlers;
 
 public class OnMessageHandler : IDisposable
 {
+    private readonly NeuroSender _neuroSender;
     private readonly TelegramBotClient _bot;
     private const string _fileStoragePath = "FileStorage";
 
@@ -14,6 +16,7 @@ public class OnMessageHandler : IDisposable
         Directory.CreateDirectory(_fileStoragePath);
 
         _bot = bot;
+        _neuroSender = new NeuroSender();
         _bot.OnMessage += OnMessage;
     }
 
@@ -49,6 +52,7 @@ public class OnMessageHandler : IDisposable
     public void Dispose()
     {
         _bot.OnMessage -= OnMessage;
+        _neuroSender.Dispose();
     }
 
     private async Task<string> SaveFileToStorage(Document doc)
@@ -60,12 +64,10 @@ public class OnMessageHandler : IDisposable
         return path;
     }
 
-    [Obsolete("ML")]
     private async Task<string> SendToMl(string sourceFilePath)
     {
-        await Task.Delay(100);
         var resultPath = Path.Combine(_fileStoragePath, Path.GetFileNameWithoutExtension(sourceFilePath) + "-review.pdf");
-        System.IO.File.Copy(sourceFilePath, resultPath);
+        await _neuroSender.Send(sourceFilePath, resultPath);
         return resultPath;
     }
 
