@@ -8,25 +8,22 @@ namespace Polumna007.Logic
 {
     internal class ReactionsGenerator
     {
+        private string[] _coolEmoji = ["😎", "🌻", "😉", "😊", "⚡", "🤘", "🍀", "💪", "⎛⎝ ≽  >  ⩊   < ≼ ⎠⎞", "☺️"];
+        private string[] _soSoEmoji = ["🤔", "🙃", "🙄", "😦", "👀", "🙉", "😑", "😩", "🤨", "😬"];
+        private string[] _veryBadEmoji = ["🙈", "😭", "😠", "😢", "😕", "😖", "😔", "❌", "(｡•́︿•̀｡)(╥﹏╥)", "😒"];
+
         public string GetAsciiEmoji(float rating)
         {
-            string[] coolEmoji = ["😎", "🌻", "😉", "😊", "⚡", "🤘", "🍀", "💪", "⎛⎝ ≽  >  ⩊   < ≼ ⎠⎞", "☺️"];
-            string[] soSoEmoji = ["🤔", "🙃", "🙄", "😦", "👀", "🙉", "😑", "😩", "🤨", "😬"];
-            string[] veryBadEmoji = ["🙈", "😭", "😠", "😢", "😕", "😖", "😔", "❌", "(｡•́︿•̀｡)(╥﹏╥)", "😒"];
+            switch(rating)
+            {
+                case <= 0.5f:
+                    return _veryBadEmoji[Random.Shared.Next(0, _veryBadEmoji.Length)];
+                case >= 0.9f:
+                    return _coolEmoji[Random.Shared.Next(0, _coolEmoji.Length)];
+                default:
+                    return _soSoEmoji[Random.Shared.Next(0, _soSoEmoji.Length)];
+            }
 
-            if (rating <= 0.5)
-            {
-                return veryBadEmoji[new Random().Next(0, veryBadEmoji.Length)];
-            }
-            if (rating >= 0.9)
-            {
-                return coolEmoji[new Random().Next(0, coolEmoji.Length)];
-            }
-            else
-            { 
-                return soSoEmoji[new Random().Next(0, soSoEmoji.Length)];
-            }
-            
         }
 
         
