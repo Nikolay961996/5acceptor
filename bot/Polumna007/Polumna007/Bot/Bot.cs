@@ -17,7 +17,7 @@ public class Bot : IDisposable
         var bot = new TelegramBotClient(token, cancellationToken: _cancellationTokenSource.Token);
         _botKeyboard = new BotKeyboard();
         _usersContext = new UsersContext();
-        _onMessageHandler = new OnMessageHandler(bot, _botKeyboard, _usersContext);
+        _onMessageHandler = new OnMessageHandler(token, bot, _botKeyboard, _usersContext);
     }
 
     public void Dispose()

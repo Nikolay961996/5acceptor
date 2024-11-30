@@ -13,6 +13,7 @@ namespace Polumna007.Bot.Handlers;
 
 public class OnMessageHandler : IDisposable
 {
+    private readonly string _token;
     private readonly TelegramBotClient _bot;
     private readonly BotKeyboard _botKeyboard;
     private readonly UsersContext _usersContext;
@@ -26,9 +27,11 @@ public class OnMessageHandler : IDisposable
         new() { Command = "/set_email", Description = "set user email" }
     ];
 
-    public OnMessageHandler(TelegramBotClient bot, BotKeyboard botKeyboard, UsersContext usersContext)
+    public OnMessageHandler(string token, TelegramBotClient bot, BotKeyboard botKeyboard, UsersContext usersContext)
     {
         Directory.CreateDirectory(_fileStoragePath);
+
+        _token = token;
 
         _bot = bot;
         _bot.OnMessage += OnMessage;
@@ -86,7 +89,8 @@ public class OnMessageHandler : IDisposable
 
             var fileId = callbackQuery.Message.Document.FileId;
             var file = TelegramBotClientExtensions.GetFile(_bot, fileId).Result;
-            // TODO: send email file by email
+            var fileFullPath = $"https://api.telegram.org/file/bot{_token}/{file.FilePath}";
+            // TODO: send file by email
             // Email: userInfo.Email
         }
     }
