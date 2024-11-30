@@ -4,10 +4,6 @@ using Polumna007.Bot;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-var generator = new ReactionsGenerator();
-Console.WriteLine(generator.GetAsciiEmoji(0.9f));
-
-
 var token = "7457083066:AAHXkUwQLcfq5U1z9e2YlJHslGGMfvlb1oQ";
 var bot = new Bot(token);
 

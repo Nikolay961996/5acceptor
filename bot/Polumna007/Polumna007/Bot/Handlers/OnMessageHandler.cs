@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using System.Text;
 using System.Net.Mail;
 using Polumna007.Logic;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Polumna007.Bot.Handlers;
 
@@ -145,7 +146,12 @@ public class OnMessageHandler : IDisposable
     private async Task TextHandler(Message msg)
     {
         Console.WriteLine($"Received text '{msg.Text}' in {msg.Chat}");
-        await CommandHandler("/start", "", msg);
+        //await CommandHandler("/start", "", msg);
+
+        var generator = new ReactionsGenerator();
+        await _bot.SendMessage(msg.Chat, $"rating ascii: {generator.GetAsciiEmoji(0.9f)}");
+        var analyst = new FileAnalyst();
+        await _bot.SendMessage(msg.Chat, $"txt.file length: {analyst.FileLength("D:\\hackaton\\5acceptor\\.gitignore")}");
     }
 
     private async Task CommandHandler(string command, string args, Message msg)
