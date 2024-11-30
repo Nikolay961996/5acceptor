@@ -12,7 +12,15 @@ namespace Polumna007.Logic
         public int FileSize(string filePath)
         {
             int size = 0;
-            using (StreamReader stroka = new )
+            using (StreamReader stroka = new StreamReader(filePath))
+            {
+                while (stroka.Read() != 0)
+                {
+                    size ++;
+                }
+                stroka.Close();
+            }
+            return size;
     }
 
         public int FileLength(string filePath)
@@ -26,7 +34,7 @@ namespace Polumna007.Logic
                     length++;
                 }
 
-
+                str.Close();
             }
             return length;
         }

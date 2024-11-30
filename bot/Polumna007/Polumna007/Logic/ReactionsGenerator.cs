@@ -24,17 +24,6 @@ namespace Polumna007.Logic
                     return _soSoEmoji[Random.Shared.Next(0, _soSoEmoji.Length)];
             }
 
-
-            if (rating <= 0.5)
-            {
-                return _veryBadEmoji[Random.Shared.Next(0, _veryBadEmoji.Length)];
-            }
-            if (rating >= 0.9)
-            {
-                return _coolEmoji[Random.Shared.Next(0, _coolEmoji.Length)];
-            }
-           
-            return _soSoEmoji[Random.Shared.Next(0, _soSoEmoji.Length)];
         }
 
         
