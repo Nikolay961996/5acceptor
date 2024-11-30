@@ -1,9 +1,11 @@
 ﻿using Polumna007.Logic;
+using System.Text;
 using Polumna007.Bot;
 
+Console.OutputEncoding = Encoding.UTF8;
+
 var generator = new ReactionsGenerator();
-Console.WriteLine("Nigora hello");
-Console.WriteLine(generator.GetAsciiEmoji(0.25f));
+Console.WriteLine(generator.GetAsciiEmoji(0.9f));
 
 
 var token = "7457083066:AAHXkUwQLcfq5U1z9e2YlJHslGGMfvlb1oQ";

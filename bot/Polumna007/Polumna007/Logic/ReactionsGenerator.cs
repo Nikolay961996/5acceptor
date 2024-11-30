@@ -10,13 +10,25 @@ namespace Polumna007.Logic
     {
         public string GetAsciiEmoji(float rating)
         {
-            Test();
-            return "zxdfg";
+            string[] coolEmoji = ["😎", "🌻", "😉", "😊", "⚡", "🤘", "🍀", "💪", "⎛⎝ ≽  >  ⩊   < ≼ ⎠⎞", "☺️"];
+            string[] soSoEmoji = ["🤔", "🙃", "🙄", "😦", "👀", "🙉", "😑", "😩", "🤨", "😬"];
+            string[] veryBadEmoji = ["🙈", "😭", "😠", "😢", "😕", "😖", "😔", "❌", "(｡•́︿•̀｡)(╥﹏╥)", "😒"];
+
+            if (rating <= 0.5)
+            {
+                return veryBadEmoji[new Random().Next(0, veryBadEmoji.Length)];
+            }
+            if (rating >= 0.9)
+            {
+                return coolEmoji[new Random().Next(0, coolEmoji.Length)];
+            }
+            else
+            { 
+                return soSoEmoji[new Random().Next(0, soSoEmoji.Length)];
+            }
+            
         }
 
-        private void Test()
-        {
-            Console.WriteLine("apple");
-        }
+        
     }
 }
