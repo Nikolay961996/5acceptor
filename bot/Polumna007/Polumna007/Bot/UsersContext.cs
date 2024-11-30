@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Polumna007.Bot;
 
 public class UsersContext
 {
-    private readonly Dictionary<long, UserInfo> _userInfos = new();
+    private readonly ConcurrentDictionary<long, UserInfo> _userInfos = new();
 
     public UserInfo GetUserInfo(long id)
     {
@@ -16,7 +17,7 @@ public class UsersContext
             return value;
 
         var userInfo = new UserInfo();
-        _userInfos.Add(id, userInfo);
+        _userInfos.TryAdd(id, userInfo);
         return userInfo;
     }
 }
