@@ -1,5 +1,14 @@
 .vs
+env
+.idea
 
+__pycache__
+*.pyc
+
+archived
+*.7z
+answer.txt
+Готовые проекты
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio
 

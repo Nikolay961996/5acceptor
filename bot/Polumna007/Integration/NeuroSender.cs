@@ -26,7 +26,7 @@ public class NeuroSender : IDisposable
     {
         var request = new FileRequest
         {
-            FileName = Path.GetFileName(sourcePath),
+            FileName = Path.GetFullPath(sourcePath),
             FileData = ByteString.CopyFrom(File.ReadAllBytes(sourcePath))
         };
         try
