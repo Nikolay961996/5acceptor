@@ -1,4 +1,5 @@
 ﻿using Integration;
+using System;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
@@ -26,8 +27,9 @@ public class DocumentHandler : IDisposable
             return;
         }
 
+        await _bot.SendMessage(chat, $"{doc.FileName} файл отправлен на ревью. Пожалуйста подождите...");
         var savedFilePath = await SaveFileToStorage(doc);
-        var resultFilePath = await SendToMl(savedFilePath);
+        var resultFilePath = await SendToMl(savedFilePath, chat);
         await SendResultFile(chat.Id, resultFilePath, doc.FileName);
         System.IO.File.Delete(savedFilePath);
         System.IO.File.Delete(resultFilePath);
@@ -47,10 +49,18 @@ public class DocumentHandler : IDisposable
         return path;
     }
 
-    private async Task<string> SendToMl(string sourceFilePath)
+    private async Task<string> SendToMl(string sourceFilePath, Chat chat)
     {
-        var resultPath = Path.Combine(_fileStoragePath, Path.GetFileNameWithoutExtension(sourceFilePath) + "-review.pdf");
-        await _neuroSender.Send(sourceFilePath, resultPath);
+        var resultPath = Path.Combine(_fileStoragePath, Path.GetFileNameWithoutExtension(sourceFilePath) + "-review.txt");
+        try
+        {
+            await _neuroSender.Send(sourceFilePath, resultPath);
+        }
+        catch (Exception ex)
+        {
+            await _bot.SendMessage(chat, $"{sourceFilePath} ошибка при ревью файла: {ex.Message}");
+
+        }
         return resultPath;
     }
 

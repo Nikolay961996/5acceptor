@@ -29,14 +29,7 @@ public class NeuroSender : IDisposable
             FileName = Path.GetFullPath(sourcePath),
             FileData = ByteString.CopyFrom(File.ReadAllBytes(sourcePath))
         };
-        try
-        {
-            var reply = await _client.TransferFileAsync(request);
-            File.WriteAllBytes(destinationPath, reply.FileData.ToByteArray());
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Ошибка отправки запроса на питон: {ex.Message}");
-        }
+        var reply = await _client.TransferFileAsync(request);
+        File.WriteAllBytes(destinationPath, reply.FileData.ToByteArray());
     }
 }

@@ -1,5 +1,6 @@
 from concurrent import futures
 from evrasaSender import evraseSend
+from markdown_pdf import MarkdownPdf
 
 import logging
 import grpc
@@ -12,7 +13,12 @@ class FileTransferServicer(FileTransfer_pb2_grpc.FileTransferServiceServicer):
 
         file_content = request.fileData.decode('utf-8') # Если файл текстовый
         processed_content = evraseSend(file_content, request.fileName)
-        print(processed_content.encode('utf-8'))
+        # pdf = MarkdownPdf(toc_level=2)
+        # pdf.add_section(Section(processed_content, toc=False))
+        # fileName = request.fileName + ".pdf";
+        # pdf.save(fileName)
+        # with open(fileName, 'r', encoding='utf-8') as code_snippet:
+        #        code_snippet_content = code_snippet.read()
 
         return FileTransfer_pb2.FileResponse(fileName=request.fileName, fileData=processed_content.encode('utf-8'))
 
