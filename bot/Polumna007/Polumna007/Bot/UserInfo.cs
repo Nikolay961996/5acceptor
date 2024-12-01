@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telegram.Bot.Types;
-
-namespace Polumna007.Bot;
+﻿namespace Polumna007.Bot;
 
 public class UserInfo
 {
